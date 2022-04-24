@@ -1,7 +1,7 @@
 package Main;
 
 import Tools.ManipulaArquivo;
-import Tools.StringsTools;
+import Tools.StringTools;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,7 +13,7 @@ import java.util.List;
 class GeradorDeEntidades {
 
     GeradorDeEntidades(String className, List<String> atributos) {
-        StringsTools stringsTools = new StringsTools();
+        StringTools stringTools = new StringTools();
         List<String> cg = new ArrayList(); // Código gerado
 
         cg.add("package Entidades;");
@@ -48,8 +48,8 @@ class GeradorDeEntidades {
         // Gets e Sets
         for (int i = 0; i < atributos.size(); i++) {
             aux = atributos.get(i).split(";");
-            cg.add("\n    public " + aux[0] + " get" + stringsTools.capitalize(aux[1]) + "() {\n        return " + aux[1] + ";\n    }");
-            cg.add("\n    public void " + "set" + stringsTools.capitalize(aux[1]) + "(" + aux[0] + " " + aux[1] + ") {\n        this." + aux[1] + " = " + aux[1] + ";\n    }");
+            cg.add("\n    public " + aux[0] + " get" + stringTools.firstLetterToUpperCase(aux[1]) + "() {\n        return " + aux[1] + ";\n    }");
+            cg.add("\n    public void " + "set" + stringTools.firstLetterToUpperCase(aux[1]) + "(" + aux[0] + " " + aux[1] + ") {\n        this." + aux[1] + " = " + aux[1] + ";\n    }");
         } // Fim Gets e Sets
 
         // toString

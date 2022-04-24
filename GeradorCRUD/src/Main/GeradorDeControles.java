@@ -1,7 +1,7 @@
 package Main;
 
 import Tools.ManipulaArquivo;
-import Tools.StringsTools;
+import Tools.StringTools;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,7 +13,7 @@ import java.util.List;
 class GeradorDeControles {
 
     GeradorDeControles(String className, List<String> atributos) {
-        StringsTools stringsTools = new StringsTools();
+        StringTools stringsTools = new StringTools();
         String[] aux;
         List<String> cg = new ArrayList(); // Código gerado
 

@@ -1,7 +1,7 @@
 package Entidades;
 
  /**
- * @author JoaoAN2 11/11/2021 - 17:52:33
+ * @author JoaoAN2 22/04/2022 - 00:12:21
  */
 
 public class Livro{
@@ -39,11 +39,11 @@ public class Livro{
         this.nome = nome;
     }
 
-    public int getAnodelancamento() {
+    public int getAnoDeLancamento() {
         return anoDeLancamento;
     }
 
-    public void setAnodelancamento(int anoDeLancamento) {
+    public void setAnoDeLancamento(int anoDeLancamento) {
         this.anoDeLancamento = anoDeLancamento;
     }
 

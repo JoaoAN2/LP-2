@@ -1,8 +1,8 @@
 package GUI;
 
-import Entidades.Livro;
+import Entidades.Papelaria;
 import Tools.ManipulaArquivo;
-import Controles.LivroControle;
+import Controles.PapelariaControle;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -26,15 +26,16 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-/**
- * @author JoaoAN2 22/04/2022 - 14:29:08
+ /**
+ * @author JoaoAN2 22/04/2022 - 22:33:51
  */
-public class LivroGUI extends JDialog {
 
-    String path = "livro.csv";
+public class PapelariaGUI extends JDialog {
 
-    Livro livro = new Livro();
-    LivroControle LivroControle = new LivroControle();
+    String path = "papelaria.csv";
+
+    Papelaria papelaria = new Papelaria();
+    PapelariaControle PapelariaControle = new PapelariaControle();
     ManipulaArquivo manipulaArquivo = new ManipulaArquivo();
     String action;
 
@@ -42,9 +43,9 @@ public class LivroGUI extends JDialog {
     JPanel pnNorth = new JPanel();
     JPanel pnSouth = new JPanel();
     JPanel pnCenter = new JPanel();
-    JPanel pnList = new JPanel(new GridLayout(1, 1));
+    JPanel pnList = new JPanel(new GridLayout(1,1));
 
-    String[] col = new String[]{"Id", "Nome", "AnoDeLancamento", "Autor", "Preco"};
+    String[] col = new String[]{"Id", "Produto", "Preco"};
     String[][] data = new String[0][col.length];
     DefaultTableModel model = new DefaultTableModel(data, col);
 
@@ -63,48 +64,37 @@ public class LivroGUI extends JDialog {
     JLabel lbId = new JLabel("Id");
     JTextField tfId = new JTextField(11);
 
-    JLabel lbNome = new JLabel("Nome");
-    JTextField tfNome = new JTextField(45);
-
-    JLabel lbAnoDeLancamento = new JLabel("AnoDeLancamento");
-    JTextField tfAnoDeLancamento = new JTextField(11);
-
-    JLabel lbAutor = new JLabel("Autor");
-    JTextField tfAutor = new JTextField(45);
+    JLabel lbProduto = new JLabel("Produto");
+    JTextField tfProduto = new JTextField(45);
 
     JLabel lbPreco = new JLabel("Preco");
     JTextField tfPreco = new JTextField(45);
 
-    private List<Livro> list = new ArrayList<>();
+    private List<Papelaria> list = new ArrayList<>();
 
     public void clear() {
-        tfNome.setText("");
-        tfAnoDeLancamento.setText("");
-        tfAutor.setText("");
+        tfProduto.setText("");
         tfPreco.setText("");
     }
 
     public void enabled() {
-        tfNome.setEditable(true);
-        tfAnoDeLancamento.setEditable(true);
-        tfAutor.setEditable(true);
+        tfProduto.setEditable(true);
         tfPreco.setEditable(true);
     }
 
     public void disabled() {
-        tfNome.setEditable(false);
-        tfAnoDeLancamento.setEditable(false);
-        tfAutor.setEditable(false);
+        tfProduto.setEditable(false);
         tfPreco.setEditable(false);
     }
 
-    public LivroGUI() {
+
+    public PapelariaGUI() {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         cp = getContentPane();
         cp.setLayout(new BorderLayout());
-        setTitle("CRUD - Livro");
+        setTitle("CRUD - Papelaria");
 
-        pnCenter.setLayout(new GridLayout(4, col.length - 1));
+        pnCenter.setLayout(new GridLayout(2, col.length - 1));
         pnNorth.setLayout(new FlowLayout(FlowLayout.LEFT));
 
         cp.add(pnNorth, BorderLayout.NORTH);
@@ -132,14 +122,8 @@ public class LivroGUI extends JDialog {
 
         disabled();
 
-        pnCenter.add(lbNome);
-        pnCenter.add(tfNome);
-
-        pnCenter.add(lbAnoDeLancamento);
-        pnCenter.add(tfAnoDeLancamento);
-
-        pnCenter.add(lbAutor);
-        pnCenter.add(tfAutor);
+        pnCenter.add(lbProduto);
+        pnCenter.add(tfProduto);
 
         pnCenter.add(lbPreco);
         pnCenter.add(tfPreco);
@@ -152,22 +136,20 @@ public class LivroGUI extends JDialog {
         pnSouth.add(pnEmpty, "empty");
         pnSouth.add(pnList, "list");
 
-        LivroControle.loadData(path);
+        PapelariaControle.loadData(path);
 
         btnSearch.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 cardLayout.show(pnSouth, "warning");
-                livro = LivroControle.read(Integer.valueOf(tfId.getText()));
-                if (livro != null) {
+                papelaria = PapelariaControle.read(Integer.valueOf(tfId.getText()));
+                if (papelaria != null) {
                     btnCreate.setVisible(false);
                     btnUpdate.setVisible(true);
                     btnDelete.setVisible(true);
 
-                    tfNome.setText(livro.getNome());
-                    tfAnoDeLancamento.setText(String.valueOf(livro.getAnoDeLancamento()));
-                    tfAutor.setText(livro.getAutor());
-                    tfPreco.setText(String.valueOf(livro.getPreco()));
+                    tfProduto.setText(papelaria.getProduto());
+                    tfPreco.setText(String.valueOf(papelaria.getPreco()));
                 } else {
                     clear();
                     btnCreate.setVisible(true);
@@ -177,10 +159,10 @@ public class LivroGUI extends JDialog {
             }
         });
 
-        btnCreate.addActionListener(new ActionListener() {
+       btnCreate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                tfNome.requestFocus();
+                tfProduto.requestFocus();
                 tfId.setEnabled(false);
                 enabled();
 
@@ -194,27 +176,25 @@ public class LivroGUI extends JDialog {
             }
         });
 
-        btnSave.addActionListener(new ActionListener() {
+       btnSave.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                Livro oldLivro = livro;
+                Papelaria oldPapelaria = papelaria;
 
-                if ("create".equals(action)) {
-                    livro = new Livro();
+                if("create".equals(action)) {
+                    papelaria =  new Papelaria();
                 }
 
-                livro.setId(Integer.valueOf(tfId.getText()));
-                livro.setNome(tfNome.getText());
-                livro.setAnoDeLancamento(Integer.valueOf(tfAnoDeLancamento.getText()));
-                livro.setAutor(tfAutor.getText());
-                livro.setPreco(Double.parseDouble(tfPreco.getText()));
+                papelaria.setId(Integer.valueOf(tfId.getText()));
+                papelaria.setProduto(tfProduto.getText());
+                papelaria.setPreco(Double.parseDouble(tfPreco.getText()));
 
-                if ("create".equals(action)) {
-                    LivroControle.create(livro);
+                if("create".equals(action)){
+                    PapelariaControle.create(papelaria);
                 }
 
-                if ("update".equals(action)) {
-                    LivroControle.update(livro, oldLivro);
+                if("update".equals(action)){
+                    PapelariaControle.update(papelaria, oldPapelaria);
                 }
 
                 btnSearch.setVisible(true);
@@ -229,12 +209,12 @@ public class LivroGUI extends JDialog {
                 clear();
                 disabled();
 
-                LivroControle.saveData(path);
+                PapelariaControle.saveData(path);
 
             }
         });
 
-        btnUpdate.addActionListener(new ActionListener() {
+       btnUpdate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
 
@@ -243,7 +223,7 @@ public class LivroGUI extends JDialog {
                 btnSave.setVisible(true);
                 btnCancel.setVisible(true);
                 btnList.setVisible(false);
-                tfNome.requestFocus();
+                tfProduto.requestFocus();
                 tfId.setEditable(false);
                 enabled();
 
@@ -251,7 +231,7 @@ public class LivroGUI extends JDialog {
             }
         });
 
-        btnDelete.addActionListener(new ActionListener() {
+       btnDelete.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
 
@@ -272,25 +252,25 @@ public class LivroGUI extends JDialog {
                 btnUpdate.setVisible(false);
                 btnCancel.setVisible(false);
 
-                if (response == JOptionPane.YES_OPTION) {
-                    LivroControle.delete(livro);
-                    LivroControle.saveData(path);
+                if(response == JOptionPane.YES_OPTION) {
+                    PapelariaControle.delete(papelaria);
+                    PapelariaControle.saveData(path);
                 }
 
             }
         });
 
-        btnList.addActionListener(new ActionListener() {
+       btnList.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
 
-                List<Livro> livroList = LivroControle.list();
-                String[] col = {"Id", "Nome", "AnoDeLancamento", "Autor", "Preco"};
-                Object[][] data = new Object[livroList.size()][col.length];
+                List<Papelaria> papelariaList = PapelariaControle.list();
+                String[] col = {"Id", "Produto", "Preco"};
+                Object[][] data = new Object[papelariaList.size()][col.length];
                 String aux[];
 
-                for (int i = 0; i < livroList.size(); i++) {
-                    aux = livroList.get(i).toString().split(";");
+                for (int i = 0; i < papelariaList.size(); i++) {
+                    aux = papelariaList.get(i).toString().split(";");
                     for (int j = 0; j < col.length; j++) {
                         data[i][j] = aux[j];
                     }
@@ -331,7 +311,7 @@ public class LivroGUI extends JDialog {
         });
 
         setModal(true);
-        setSize(600, 250);
+        setSize(600,250);
         setLocationRelativeTo(null);
         setVisible(true);
     }
