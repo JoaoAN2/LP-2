@@ -14,12 +14,11 @@ public class Main {
     
     public static void main(String[] args) {
         List<String> atributos = new ArrayList(); // Lista de atributos.
-        String className = "Papelaria"; // Nome da classe.
+        String className = "CatReferee"; // Nome da classe.
         
         // Atributos da classe.
-        atributos.add("int;id;11");
-        atributos.add("String;produto;45");
-        atributos.add("double;preco;45");
+        atributos.add("String;siglaCatReferee;11");
+        atributos.add("String;nameCatReferee;45");
         
         GeradorDeEntidades geradorDeEntidades = new GeradorDeEntidades(className, atributos);
         GeradorDeControles geradorDeControles = new GeradorDeControles(className, atributos);

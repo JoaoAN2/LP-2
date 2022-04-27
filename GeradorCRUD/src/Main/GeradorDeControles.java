@@ -42,7 +42,7 @@ class GeradorDeControles {
 
         aux = atributos.get(0).split(";");
 
-        cg.add("\n    public " + stringsTools.capitalize(className) + " read(" + aux[0] + " " + aux[1] + ") {\n        for (int i = 0; i < list.size(); i++){\n            if(" + aux[1] + " == list.get(i).get" + stringsTools.capitalize(aux[1]) + "()){\n                return list.get(i);\n            }\n        }\n        return null;\n    }");
+        cg.add("\n    public " + stringsTools.capitalize(className) + " read(" + aux[0] + " " + aux[1] + ") {\n        for (int i = 0; i < list.size(); i++){\n            if(" + aux[1] + " == list.get(i).get" + stringsTools.firstLetterToUpperCase(aux[1]) + "()){\n                return list.get(i);\n            }\n        }\n        return null;\n    }");
         cg.add("\n    public void update(" + className + " atual, " + className + " novo) {\n        list.set(list.indexOf(atual), novo);\n    }");
         cg.add("\n    public void delete(" + className + " " + stringsTools.firstLetterToLowerCase(className) + ") {\n        list.remove(" + stringsTools.firstLetterToLowerCase(className) + ");\n    }");
 

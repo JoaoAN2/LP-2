@@ -179,7 +179,7 @@ class GeradorDeGUI {
         aux = atributos.get(0).split(";");
         switch (aux[0]) {
             case "String":
-                cg.add("                " + classNameMin + " = " + className + "Controle.read(tf" + stringTools.firstLetterToUpperCase(aux[1]) + ");");
+                cg.add("                " + classNameMin + " = " + className + "Controle.read(tf" + stringTools.firstLetterToUpperCase(aux[1]) + ".getText());");
                 break;
             case "int":
                 cg.add("                " + classNameMin + " = " + className + "Controle.read(Integer.valueOf(tf" + stringTools.firstLetterToUpperCase(aux[1]) + ".getText()));");
@@ -306,6 +306,7 @@ class GeradorDeGUI {
                 + "                btnSave.setVisible(true);\n" 
                 + "                btnCancel.setVisible(true);\n"
                 + "                btnList.setVisible(false);\n"
+                + "                btnUpdate.setVisible(false);"
                 + "                tf" + stringTools.firstLetterToUpperCase(atributos.get(1).split(";")[1]) + ".requestFocus();\n"
                 + "                tf" + stringTools.firstLetterToUpperCase(aux[1]) + ".setEditable(false);\n"
                 + "                enabled();\n"
@@ -392,7 +393,8 @@ class GeradorDeGUI {
                 + "                tf" + stringTools.firstLetterToUpperCase(aux[1]) + ".setEnabled(true);\n" 
                 + "                tf" + stringTools.firstLetterToUpperCase(aux[1]) + ".setEditable(true);\n" 
                 + "\n" 
-                + "                disabled();\n" 
+                + "                disabled();\n"
+                + "                clear();\n" 
                 + "\n" 
                 + "                btnCreate.setVisible(false);\n" 
                 + "                btnUpdate.setVisible(false);\n" 
