@@ -16,7 +16,7 @@ Ano: 2021 - M33
 
 - Desenvolvimento de GUI utilizando Java Swing. ✅
 
-- CRUDs utilizando interface gráfica. ✅
+- <a href="./CRUD-GUI">CRUDs utilizando interface gráfica.</a> ✅
 
 - Gerador de código para padronização e agilidade no desenvolvimento de CRUDs com GUIs. ✅
 
